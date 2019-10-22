@@ -7,7 +7,7 @@ import '../../../src/App.css';
 import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 import axios from 'axios';
 import testdata from './data';
-import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
+
 
 //function getThData (UserID,token) {
   function getThData () {
