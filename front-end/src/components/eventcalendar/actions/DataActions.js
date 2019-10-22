@@ -13,7 +13,7 @@ export const FETCHING_START = "FETCHING_START";
 export const FETCHING_FAILURE = "FETCHING_FAILURE";
 
 
-var temptoken = '';
+var temptoken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJlbWFpbCI6ImNvbGxldHRlMUB0ZXN0LmNvbSIsImlhdCI6MTU3MTc4Mzc2OCwiZXhwIjoxNTcxNzg3MzY4fQ.IeUhRvMpzslV0ofzH7EB1SHQrKuEVWnpQfJClHh4Z6g';
 
 var config = {
     headers: {'Authentication': temptoken}
