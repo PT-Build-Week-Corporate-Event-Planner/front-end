@@ -10,7 +10,7 @@ class EventCalendar extends React.Component {
   
   render() {
     
-    return (<ScheduleComponent currentView='Month'>
+    return ( <div className='mainCalendar'><ScheduleComponent currentView='Month'>
        
     
      <ViewsDirective>
@@ -22,7 +22,7 @@ class EventCalendar extends React.Component {
 
    <Inject services={[Month]}/>
 
-</ScheduleComponent>)
+</ScheduleComponent> </div>)
 
   }
 
