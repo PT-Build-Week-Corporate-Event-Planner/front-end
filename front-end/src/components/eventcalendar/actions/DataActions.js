@@ -22,7 +22,7 @@ var config = {
 
 
 
-export const sendEvents = ({x, y, z }) => dispatch => {
+export const sendEvent = ({x, y, z }) => dispatch => {
     dispatch({ type: SENDING_START });
     axios
       .post("https://corporate-event-planner-webeu.herokuapp.com/", {
