@@ -14,15 +14,13 @@ class EventCalendar extends React.Component {
   } 
   render() {
     
-    return ( <div className='mainCalendar'><ScheduleComponent currentView='Month'>
-       
+    return ( <div className='mainCalendar'><ScheduleComponent currentView='Month'>       
     
-     <ViewsDirective>
+  <ViewsDirective>
 
-        <ViewDirective option='Month'/>
-        
+  <ViewDirective option='Month'/>        
     
-    </ViewsDirective>
+  </ViewsDirective>
 
    <Inject services={[Month]}/>
 
