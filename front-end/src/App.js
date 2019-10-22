@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import EventCalendar from './components/eventcalendar/EventCalendar';
+import EventCalendarLoader from './components/eventcalendar/EventCalendarLoader';
 
 function App() {
   return (

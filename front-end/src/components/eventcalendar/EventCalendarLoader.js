@@ -1,3 +1,4 @@
+/*
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getEvents } from "./actions/DataActions";
@@ -7,7 +8,7 @@ const LoadingEvents = ({ getEvents, data, gettingEvents }) => {
 
   useEffect(() => {
    
-    getSmurfs();
+    getEvents();
   }, [getEvents]);
 
   if (gettingEvents) {
@@ -47,3 +48,4 @@ export default connect(
   { getEvents }
 
 )(LoadingEvents);
+*/
