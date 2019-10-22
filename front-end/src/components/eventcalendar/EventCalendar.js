@@ -5,6 +5,7 @@ import * as ReactDOM from "react-dom";
 import { Ajax } from '@syncfusion/ej2-base';
 import '../../../src/App.css';
 import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
+import axios from 'axios';
 
 class EventCalendar extends React.Component {
   
