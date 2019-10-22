@@ -8,7 +8,10 @@ import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 import axios from 'axios';
 
 class EventCalendar extends React.Component {
-  
+  constructor () {
+    super()
+
+  } 
   render() {
     
     return ( <div className='mainCalendar'><ScheduleComponent currentView='Month'>
