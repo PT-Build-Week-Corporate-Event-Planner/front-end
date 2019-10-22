@@ -17,16 +17,16 @@ L10n.load({
   }
 });
 
-
 // Main Calendar Component. 
 class EventCalendar extends React.Component {
  
   constructor () {
     super()
     this.data = testdata;
+
+    
     
   } 
-  
   
   render() {
     
@@ -34,7 +34,7 @@ class EventCalendar extends React.Component {
       
         <h2>Calendar of Events</h2>
       
-      <ScheduleComponent currentView='Month' showHeaderBar={true} height='600px' ref={t => this.scheduleObj = t} eventSettings={{ dataSource: this.data,
+      <ScheduleComponent currentView='Month' showHeaderBar={true} height='600px' eventSettings={{ dataSource: this.data,
       
       fields: {
           Eventid: 'Id',

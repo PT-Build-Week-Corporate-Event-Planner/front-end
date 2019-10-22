@@ -1,4 +1,7 @@
-, 
+, useEffect(() => {
+   
+      getEvents();
+    }, [getEvents]);
     
     {fields: {
       id: 'TravelId',

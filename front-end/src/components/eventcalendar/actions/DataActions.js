@@ -17,7 +17,8 @@ var temptoken = '';
 
 var config = {
     headers: {'Authentication': temptoken}
-  };
+  
+};
 
 
 
