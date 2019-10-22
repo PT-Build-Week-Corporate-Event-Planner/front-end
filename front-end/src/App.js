@@ -6,7 +6,7 @@ import "./App.css";
 function App() {
 	return (
 		<div className="App">
-			<Route path="/signUp" component={SignupForm} />
+			<Route path="/register" component={SignupForm} />
 			{/* <Route path="/login"  /> */}
 		</div>
 	);
