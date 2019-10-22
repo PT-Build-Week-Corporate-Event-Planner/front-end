@@ -24,12 +24,17 @@ L10n.load({
 
 
 class EventCalendar extends React.Component {
+ 
   constructor () {
     super()
     this.data = testdata;
-  
-
+    //private dataManager: Object = [];
+    //let ajax = new Ajax('https://corporate-event-planner-webeu.herokuapp.com/api/events', 'GET', false);
+    //ajax.onSuccess = function (value) {
+    //dataManager = value; }
+    //console.log(ajax);
   } 
+  
   
   render() {
     

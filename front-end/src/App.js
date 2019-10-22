@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import EventCalendar from './components/eventcalendar/EventCalendar';
+import EventCalendar from './components/eventcalendar/EventCalendar.tsx';
 
 function App() {
   return (
