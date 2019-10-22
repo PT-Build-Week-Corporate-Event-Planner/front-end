@@ -1,7 +1,7 @@
-/*
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { getEvents } from "./actions/DataActions";
+
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { getEvents } from './actions/DataActions';
 import EventCalendar from './EventCalendar'; 
 
 const LoadingEvents = ({ getEvents, data, gettingEvents }) => {
@@ -48,4 +48,3 @@ export default connect(
   { getEvents }
 
 )(LoadingEvents);
-*/
