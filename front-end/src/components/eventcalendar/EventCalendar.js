@@ -6,7 +6,7 @@ import { Ajax } from '@syncfusion/ej2-base';
 import '../../../src/App.css';
 import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 import axios from 'axios';
-
+import testdata from './data';
 
 //function getThData (UserID,token) {
   function getThData () {
@@ -41,12 +41,30 @@ getThData();
 class EventCalendar extends React.Component {
   constructor () {
     super()
-    this.data = getThData();
-    console.log('this.data ' + this.data)
+    this.data = testdata;
+    
+
+
   } 
+  
   render() {
     
-    return ( <div className='mainCalendar'><ScheduleComponent currentView='Month' height='600px' eventSettings={{ dataSource: this.data }}>       
+    return ( <div className='mainCalendar'>
+      
+      
+      <ScheduleComponent currentView='Month' height='600px' eventSettings={{ dataSource: this.data}, 
+    
+    {fields: {
+      id: 'TravelId',
+      subject: { name: 'TravelSummary' },
+      isAllDay: { name: 'FullDay' },
+      location: { name: 'Source' },
+      description: { name: 'Comments' },
+      startTime: { name: 'DepartureTime' },
+      endTime: { name: 'ArrivalTime' },
+      startTimezone: { name: 'Origin' },
+      endTimezone: { name: 'Destination' }
+    }}}>       
     
   <ViewsDirective>
 
