@@ -7,6 +7,7 @@ import '../../../src/App.css';
 import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 import axios from 'axios';
 import testdata from './data';
+import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 
 //function getThData (UserID,token) {
   function getThData () {
@@ -52,19 +53,7 @@ class EventCalendar extends React.Component {
     return ( <div className='mainCalendar'>
       
       
-      <ScheduleComponent currentView='Month' height='600px' eventSettings={{ dataSource: this.data}, 
-    
-    {fields: {
-      id: 'TravelId',
-      Title: { name: 'TravelSummary' },
-      isAllDay: { name: 'FullDay' },
-      location: { name: 'Source' },
-      description: { name: 'Comments' },
-      startTime: { name: 'DepartureTime' },
-      endTime: { name: 'ArrivalTime' },
-      startTimezone: { name: 'Origin' },
-      endTimezone: { name: 'Destination' }
-    }}}>       
+      <ScheduleComponent currentView='Month' height='600px' ref={t => this.scheduleObj = t} eventSettings={{ dataSource: this.data}}>       
     
   <ViewsDirective>
 

@@ -1,0 +1,13 @@
+, 
+    
+    {fields: {
+      id: 'TravelId',
+      Title: { name: 'TravelSummary' },
+      isAllDay: { name: 'FullDay' },
+      location: { name: 'Source' },
+      description: { name: 'Comments' },
+      startTime: { name: 'DepartureTime' },
+      endTime: { name: 'ArrivalTime' },
+      startTimezone: { name: 'Origin' },
+      endTimezone: { name: 'Destination' }
+    }}
