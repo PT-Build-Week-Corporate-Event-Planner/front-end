@@ -8,30 +8,41 @@ import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 import axios from 'axios';
 
 
+//function getThData (UserID,token) {
+  function getThData () {
+    var thedata;
+    var config = {
+    
+    //headers: {'Authentication': token }
+  
+    headers: {'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJlbWFpbCI6ImNvbGxldHRlQHRlc3QuY29tIiwiaWF0IjoxNTcxNzE4OTk1LCJleHAiOjE1NzE3MjI1OTV9.fiCJ9dBvnETxWWTWx7RljlH1HB_5WA4tezp9KwNpqCQ" }
+  
+  };
+  
+  //axios.get('https://corporate-event-planner-webeu.herokuapp.com//api/events/?user_id='+ `${UserID}`, config)
+
+  axios.get('https://corporate-event-planner-webeu.herokuapp.com/api/events/?user_id=3', config)
+        .then(response => {
+    //console.log(response.data);
+
+          thedata = response.data;
+          console.log('the data ' + thedata);
+          return thedata;
+
+     })
+  .catch(error => {
+    console.log(error);
+  });
+
+}
+
+getThData();
+
 class EventCalendar extends React.Component {
   constructor () {
     super()
-    this.data = [{
-      Id: 1,
-      Subject: 'Explosion of Betelgeuse Star',
-      StartTime: new Date(2019, 9, 15, 9, 30),
-      EndTime: new Date(2019, 9, 15, 11, 0)
-  }, {
-      Id: 2,
-      Subject: 'Thule Air Crash Report',
-      StartTime: new Date(2019, 9, 12, 12, 0),
-      EndTime: new Date(2019, 9, 12, 14, 0)
-  }, {
-      Id: 3,
-      Subject: 'Blue Moon Eclipse',
-      StartTime: new Date(2019, 9, 13, 9, 30),
-      EndTime: new Date(2019, 9, 13, 11, 0)
-  }, {
-      Id: 4,
-      Subject: 'Meteor Showers in 2018',
-      StartTime: new Date(2019, 9, 14, 13, 0),
-      EndTime: new Date(2019, 9, 14, 14, 30)
-  }];
+    this.data = getThData();
+    console.log('this.data ' + this.data)
   } 
   render() {
     
