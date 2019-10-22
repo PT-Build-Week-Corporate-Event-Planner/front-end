@@ -1,4 +1,4 @@
-@import './material.css';
+@import '../src/components/eventcalendar/material.css';
 .App {
   text-align: center;
 }

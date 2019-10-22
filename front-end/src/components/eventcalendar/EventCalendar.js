@@ -3,7 +3,7 @@ import { Inject, Month,ViewDirective, ViewsDirective} from '@syncfusion/ej2-reac
 import * as React from 'react';
 import * as ReactDOM from "react-dom";
 import { Ajax } from '@syncfusion/ej2-base';
-import './App.css';
+import '../../../src/App.css';
 import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 
 class EventCalendar extends React.Component {
