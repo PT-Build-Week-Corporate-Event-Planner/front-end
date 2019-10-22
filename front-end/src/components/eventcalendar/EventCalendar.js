@@ -7,35 +7,19 @@ import '../../../src/App.css';
 import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 import axios from 'axios';
 import testdata from './data';
+import { extend, L10n } from '@syncfusion/ej2-base';
 
-
-//function getThData (UserID,token) {
-  function getThData () {
-    var thedata;
-    var config = {
-    
-    //headers: {'Authentication': token }
-  
-    headers: {'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJlbWFpbCI6ImNvbGxldHRlQHRlc3QuY29tIiwiaWF0IjoxNTcxNzE4OTk1LCJleHAiOjE1NzE3MjI1OTV9.fiCJ9dBvnETxWWTWx7RljlH1HB_5WA4tezp9KwNpqCQ" }
-  
-  };
-  
-  //axios.get('https://corporate-event-planner-webeu.herokuapp.com//api/events/?user_id='+ `${UserID}`, config)
-
-  axios.get('https://corporate-event-planner-webeu.herokuapp.com/api/events/?user_id=3', config)
-        .then(response => {
-    //console.log(response.data);
-
-          thedata = response.data;
-          console.log('the data ' + thedata);
-          return thedata;
-
-     })
-  .catch(error => {
-    console.log(error);
-  });
-
-}
+// Event Buttons 
+L10n.load({
+  'en-US': {
+      'schedule': {
+          'saveButton': 'Update Event',
+          'cancelButton': 'Close Event',
+          'deleteButton': 'Remove Event',
+          'newEvent': 'Add a new Event',
+      },
+  }
+});
 
 
 
@@ -43,8 +27,7 @@ class EventCalendar extends React.Component {
   constructor () {
     super()
     this.data = testdata;
-    
-
+  
 
   } 
   
@@ -52,7 +35,7 @@ class EventCalendar extends React.Component {
     
     return ( <div className='mainCalendar'>
       
-      
+      <h2>Calendar of Events</h2>
       <ScheduleComponent currentView='Month' height='600px' ref={t => this.scheduleObj = t} eventSettings={{ dataSource: this.data}}>       
     
   <ViewsDirective>
