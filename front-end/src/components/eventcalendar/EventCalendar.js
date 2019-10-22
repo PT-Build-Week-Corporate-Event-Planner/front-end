@@ -37,7 +37,7 @@ class EventCalendar extends React.Component {
       <ScheduleComponent currentView='Month' showHeaderBar={true} height='600px' eventSettings={{ dataSource: this.data,
       
       fields: {
-          Eventid: 'Id',
+          id: 'id',
           Subject: { name: 'Subject', title: 'Event Name',validation: { required: true }},
           Description: {name: 'Description',title: 'Event Description'},
           StartTime: { name: 'StartTime' },
