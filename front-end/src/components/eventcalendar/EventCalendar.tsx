@@ -28,11 +28,7 @@ class EventCalendar extends React.Component {
   constructor () {
     super()
     this.data = testdata;
-    //private dataManager: Object = [];
-    //let ajax = new Ajax('https://corporate-event-planner-webeu.herokuapp.com/api/events', 'GET', false);
-    //ajax.onSuccess = function (value) {
-    //dataManager = value; }
-    //console.log(ajax);
+    
   } 
   
   
@@ -42,12 +38,12 @@ class EventCalendar extends React.Component {
       
         <h2>Calendar of Events</h2>
       
-      <ScheduleComponent currentView='Month' height='600px' ref={t => this.scheduleObj = t} eventSettings={{ dataSource: this.data,
+      <ScheduleComponent currentView='Month' showHeaderBar={true} height='600px' ref={t => this.scheduleObj = t} eventSettings={{ dataSource: this.data,
       
       fields: {
           Eventid: 'Id',
-          Subject: { name: 'Subject' },
-          Description: {name: 'Description'},
+          Subject: { name: 'Subject', title: 'Event Name',validation: { required: true }},
+          Description: {name: 'Description',title: 'Event Description'},
           StartTime: { name: 'StartTime' },
           EndTime: { name: 'EndTime' },
           attendees: { name: 'attendees' },
@@ -55,8 +51,7 @@ class EventCalendar extends React.Component {
           user_id: { name: 'user_id' },
           completed: { name: 'completed'}
       }
-      
-      
+           
       }}>       
     
   <ViewsDirective>

@@ -22,7 +22,7 @@ const thedata = [{
 },
 {
     Eventid: 3,    
-    Subject: 'Corporate Event 2',
+    Subject: 'Corporate Event 3',
     Description: 'Test',
     StartTime: new Date(2019, 9, 24, 10, 0),
     EndTime: new Date(2019, 9, 24, 12, 30),
@@ -30,8 +30,18 @@ const thedata = [{
     budget: 600,
     user_id: 2,
     completed: 0
+},
+{
+    Eventid: 4,    
+    Subject: 'Corporate Event 4',
+    Description: 'Test',
+    StartTime: new Date(2019, 10, 1, 10, 0),
+    EndTime: new Date(2019, 10, 1, 12, 30),
+    attendees: 15,
+    budget: 600,
+    user_id: 2,
+    completed: 0
 }
-
 ];    
 
 export default thedata;
