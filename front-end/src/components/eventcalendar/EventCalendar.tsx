@@ -1,11 +1,11 @@
 import { ScheduleComponent } from '@syncfusion/ej2-react-schedule';
 import { Inject, Month,ViewDirective, ViewsDirective} from '@syncfusion/ej2-react-schedule';
 import * as React from 'react';
-import * as ReactDOM from "react-dom";
-import { Ajax } from '@syncfusion/ej2-base';
+//import * as ReactDOM from "react-dom";
+//import { Ajax } from '@syncfusion/ej2-base';
 import '../../../src/App.css';
-import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
-import axios from 'axios';
+//import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
+//import axios from 'axios';
 import testdata from './data';
 import { extend, L10n } from '@syncfusion/ej2-base';
 
@@ -42,7 +42,22 @@ class EventCalendar extends React.Component {
       
         <h2>Calendar of Events</h2>
       
-      <ScheduleComponent currentView='Month' height='600px' ref={t => this.scheduleObj = t} eventSettings={{ dataSource: this.data}}>       
+      <ScheduleComponent currentView='Month' height='600px' ref={t => this.scheduleObj = t} eventSettings={{ dataSource: this.data,
+      
+      fields: {
+          Eventid: 'Id',
+          Subject: { name: 'Subject' },
+          Description: {name: 'Description'},
+          StartTime: { name: 'StartTime' },
+          EndTime: { name: 'EndTime' },
+          attendees: { name: 'attendees' },
+          budget: { name: 'budget' },
+          user_id: { name: 'user_id' },
+          completed: { name: 'completed'}
+      }
+      
+      
+      }}>       
     
   <ViewsDirective>
 
