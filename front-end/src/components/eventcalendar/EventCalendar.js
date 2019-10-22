@@ -35,12 +35,13 @@ class EventCalendar extends React.Component {
     
     return ( <div className='mainCalendar'>
       
-      <h2>Calendar of Events</h2>
+        <h2>Calendar of Events</h2>
+      
       <ScheduleComponent currentView='Month' height='600px' ref={t => this.scheduleObj = t} eventSettings={{ dataSource: this.data}}>       
     
   <ViewsDirective>
 
-  <ViewDirective option='Month'/>        
+    <ViewDirective option='Month'/>        
     
   </ViewsDirective>
 
