@@ -36,7 +36,7 @@ import testdata from './data';
 
 }
 
-getThData();
+
 
 class EventCalendar extends React.Component {
   constructor () {
@@ -56,7 +56,7 @@ class EventCalendar extends React.Component {
     
     {fields: {
       id: 'TravelId',
-      subject: { name: 'TravelSummary' },
+      Title: { name: 'TravelSummary' },
       isAllDay: { name: 'FullDay' },
       location: { name: 'Source' },
       description: { name: 'Comments' },

@@ -1,4 +1,4 @@
-const testdata = [{
+const thedata = [{
     Id: 1,
     Subject: 'Corporate Event 1',
     StartTime: new Date(2019, 9, 21, 10, 0),
@@ -19,4 +19,4 @@ const testdata = [{
 
 ];    
 
-export default testdata;
+export default thedata;
