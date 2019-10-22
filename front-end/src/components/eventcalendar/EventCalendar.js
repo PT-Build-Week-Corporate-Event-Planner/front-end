@@ -1,13 +1,9 @@
 import { ScheduleComponent } from '@syncfusion/ej2-react-schedule';
 import { Inject, Month,ViewDirective, ViewsDirective} from '@syncfusion/ej2-react-schedule';
 import * as React from 'react';
-//import * as ReactDOM from "react-dom";
-//import { Ajax } from '@syncfusion/ej2-base';
 import '../../../src/App.css';
-//import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
-//import axios from 'axios';
 import testdata from './data';
-import { extend, L10n } from '@syncfusion/ej2-base';
+import { L10n } from '@syncfusion/ej2-base';
 
 // Event Buttons 
 L10n.load({
@@ -22,7 +18,7 @@ L10n.load({
 });
 
 
-
+// Main Calendar Component. 
 class EventCalendar extends React.Component {
  
   constructor () {
