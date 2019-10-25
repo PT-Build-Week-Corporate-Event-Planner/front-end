@@ -1,8 +1,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import SignupForm from "./components/Onboard";
-import TasksList from "./components/TasksList";
-
+import EventsList from './components/EventsList';
 import "./App.css";
 
 function App() {
