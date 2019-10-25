@@ -61,17 +61,20 @@ class EventsList extends Component {
       Events.push(response.data);
 
       this.setState({ Events, newEventModal: false, newEventData: {
-        event_title: String,
-        event_description: String,
-        image_url: String,
-        event_date: Date,
-        event_time: String,
-        attendees: Number,
-        budget: Number,
-        user_id: Number,
-        completed: Boolean
-      }});
-    });
+        event_title: '',
+        event_description: '',
+        image_url: '',
+        event_date: '',
+        event_time: '',
+        attendees: '',
+        budget: '',
+        user_id: '',
+        completed: ''
+      }})      
+   })
+   .catch(error => {
+    console.log(error)
+  })
   }
   updateEvent() {
     let {event_title,event_description,image_url,event_date,event_time,attendees,budget,user_id,completed } = this.state.editEventData;
