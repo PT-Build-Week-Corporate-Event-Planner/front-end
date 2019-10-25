@@ -13,7 +13,7 @@ const Login = props => {
 			.post('/api/auth/login', credentials)
 			.then(res => {
 				localStorage.setItem('token', res.data.token);
-				props.history.push('./eventcalendar/EventCalendar');
+				props.history.push('/eventslist');
 				window.location.reload(false);
 			})
 			.catch(err => console.log(err));
