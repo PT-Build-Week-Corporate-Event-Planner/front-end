@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap';
-import "react-datepicker/dist/react-datepicker.css";
+//import "react-datepicker/dist/react-datepicker.css";
 //import moment from 'moment';
-import {axiosWithAuth} from './utils/axiosWithAuth';
+import {axiosWithAuth} from '../utils/axiosWithAuth';
 //import React, { useState, useEffect } from "react";
 
 class EventsList extends Component {
