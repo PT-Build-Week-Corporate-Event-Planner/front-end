@@ -18,7 +18,7 @@ const SignupForm = props => {
 	const registerUser = user => {
 		console.log(user);
 		axios
-			.post("https://corporate-event-planner-webeu.herokuapp.com/api/auth/register", {
+			.post("https://event-planner-pt.herokuapp.com/api/auth/register", {
 				first_name: user.firstName,
 				last_name: user.lastName,
 				password: user.password,
