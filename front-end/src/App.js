@@ -7,7 +7,9 @@ import "./App.css";
 function App() {
 	return (
 		<div className="App">
-			<EventsList />
+			<TasksList />
+			<Route path="/register" component={SignupForm} />
+			<Route path="/login"  />
 		</div>
 	);
 }
