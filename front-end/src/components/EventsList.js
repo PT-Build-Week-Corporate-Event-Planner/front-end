@@ -9,7 +9,7 @@ import {axiosWithAuth} from '../utils/axiosWithAuth';
 class EventsList extends Component {
    constructor () {
     super(); 
-    this.loggedinUserID = localStorage.getItem( "user_id" );
+    //this.loggedinUserID = localStorage.getItem( "userid" );
    }
      
   state = {
@@ -123,7 +123,9 @@ class EventsList extends Component {
     });
   }
   
+  
   render() {
+    //console.log('loggedinuserID: ' + this.loggedinUserIDuser)
     let Events = this.state.Events.map((Event) => {
       return (
         <tr key={Event.id}>   
