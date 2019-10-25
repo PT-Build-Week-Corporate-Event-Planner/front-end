@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap';
 //import "react-datepicker/dist/react-datepicker.css";
-//import moment from 'moment';
+import moment from 'moment';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
 //import React, { useState, useEffect } from "react";
 
@@ -74,6 +74,7 @@ class EventsList extends Component {
    })
    .catch(error => {
     console.log(error)
+    debugger;
   })
   }
   updateEvent() {
@@ -91,6 +92,7 @@ class EventsList extends Component {
     })
     .catch(error => {
       console.log(error);
+     
     });
   }
   editEvent(id, event_title,event_description,image_url,event_date,event_time,attendees,budget,user_id,completed) {
@@ -133,8 +135,8 @@ class EventsList extends Component {
         <td>{Event.event_title}</td>
         <td>{Event.event_description}</td>
         <td>{Event.image_url}</td>
-        <td>{Event.event_date}</td>
-        <td>{Event.event_time}</td>
+        <td>{moment(Event.event_date).format('LL')}</td>
+        <td>{moment(Event.event_time, 'HH:mm').format('LT')}</td>
         <td>{Event.attendees}</td>
         <td>{Event.budget}</td>
         <td>{Event.user_id}</td>
@@ -208,6 +210,7 @@ class EventsList extends Component {
             
                     
            <Input type="date" id="event_date"  value={this.state.newEventData.event_date} onChange={(e) => {let { newEventData } = this.state; 
+           
             newEventData.event_date = e.target.value; this.setState({ newEventData }); }} /> 
       
           
@@ -342,7 +345,7 @@ class EventsList extends Component {
 
           <FormGroup>
             <Label for="event_date">Event Date</Label>
-            <Input id="event_date" type="date" value={this.state.editEventData.event_date} onChange={(e) => {
+            <Input id="event_date" type="date" value={moment(this.state.editEventData.event_date).format('YYYY-MM-DD')} onChange={(e) => {
               let { editEventData } = this.state;
 
               editEventData.event_date = e.target.value;
