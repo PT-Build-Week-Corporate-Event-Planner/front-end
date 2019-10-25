@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import axiosWithAuth from '../utils/axiosWithAuth';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const Login = props => {
 	const [credentials, setCredentials] = useState({
-		username: '',
+		email: '',
 		password: ''
 	});
 
@@ -13,7 +13,7 @@ const Login = props => {
 			.post('/api/auth/login', credentials)
 			.then(res => {
 				localStorage.setItem('token', res.data.token);
-				props.history.push('./eventcalendar/EventCalendar');
+				props.history.push('/eventslist');
 				window.location.reload(false);
 			})
 			.catch(err => console.log(err));
@@ -29,20 +29,20 @@ const Login = props => {
 
     return (
 		<>
-			<Container>
-				<Form onSubmit={handleSubmit}>
+			<div>
+				<form onSubmit={handleSubmit}>
                     <h1 className='login-title'>Log In to Your Account</h1>
 						<label>Username</label>
-						<Input
+						<input
 							type='text'
-                            name='username'
-                            placeholder='Username'
-							value={credentials.username}
+                            name='email'
+                            placeholder='email'
+							value={credentials.login}
 							onChange={handleChange}							
 							required
 						/>				
 						<label>Password</label>
-						<Input
+						<input
 							type='password'
                             name='password'
                             placeholder='Password'
@@ -50,9 +50,9 @@ const Login = props => {
 							onChange={handleChange}							
 							required
 						/>					
-					<Button>Login</Button>
-				</Form>
-			</Container>
+					<button>Login</button>
+				</form>
+			</div>
 		</>
 	);
 };
