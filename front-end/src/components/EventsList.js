@@ -15,27 +15,27 @@ class EventsList extends Component {
   state = {
     Events: [],
     newEventData: {
-        event_title: String,
-        event_description: String,
-        image_url: String,
-        event_date: Date,
-        event_time: String,
-        attendees: Number,
-        budget: Number,
-        user_id: Number,
-        completed: Boolean
+        event_title: '',
+        event_description: '',
+        image_url: '',
+        event_date: '',
+        event_time: '',
+        attendees: '',
+        budget: '',
+        user_id: '',
+        completed: ''
     },
     editEventData: {
-        id: Number,
-        event_title: String,
-        event_description: String,
-        image_url: String,
-        event_date: Date,
-        event_time: String,
-        attendees: Number,
-        budget: Number,
-        user_id: Number,
-        completed: Boolean
+        id: '',
+        event_title: '',
+        event_description: '',
+        image_url: '',
+        event_date: '',
+        event_time: '',
+        attendees: '',
+        budget: '',
+        user_id: '',
+        completed: ''
     },
     newEventModal: false,
     editEventModal: false
@@ -250,8 +250,8 @@ class EventsList extends Component {
         {/* user_id */}
 
         <FormGroup>
-            {/*<Label for="user_id">user_id</Label>*/} 
-            <Input id="user_id" type="hidden" value={this.state.newEventData.user_id} onChange={(e) => {
+            {/*<Label for="user_id">user_id</Label> type="hidden"*/} 
+            <Input id="user_id"  value={this.state.newEventData.user_id} onChange={(e) => {
               let { newEventData } = this.state;
 
               newEventData.user_id = e.target.value;
