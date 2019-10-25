@@ -9,7 +9,7 @@ import {axiosWithAuth} from '../utils/axiosWithAuth';
 class EventsList extends Component {
    constructor () {
     super(); 
-    
+    this.loggedinUserID = localStorage.getItem( "user_id" );
    }
      
   state = {
