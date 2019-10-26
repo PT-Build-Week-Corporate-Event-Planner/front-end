@@ -17,7 +17,7 @@ class EventsTasks extends Component {
     newTaskData: {
         task_name: '',
         event_id: '',
-        task_completed: ''
+        task_completed: false
    },
     editTaskData: {
         id: '',
@@ -29,7 +29,7 @@ class EventsTasks extends Component {
     editTaskModal: false
   }
   componentWillMount() {
-    this._refreshEvents();
+    this._refreshTasks();
   }
   toggleNewTaskModal() {
     this.setState({
@@ -42,10 +42,11 @@ class EventsTasks extends Component {
     });
   }
   addTask() {
-    axiosWithAuth()
+      
+    axiosWithAuth()    
     .post('/api/tasks/?event_id=' + this.Event_id, this.state.newTaskData).then((response) => {
       let { Tasks } = this.state;
-
+      
       Tasks.push(response.data);
 
       this.setState({ Tasks, newTaskModal: false, newTaskData: {
@@ -55,25 +56,25 @@ class EventsTasks extends Component {
    })
    .catch(error => {
     console.log(error)
-    debugger;
+    
     })
   }
   updateTask() {
     let { task_name,task_completed } = this.state.editTaskData;
     axiosWithAuth()
     .put('/api/tasks/' + this.state.editTaskData.id, {
-      task_name, task_completed
+      task_name, task_completed: task_completed === "true" ? true:false 
     })
     .then((response) => {
-      this._refreshEvents();
-
+      this._refreshTasks();
+       // debugger;
       this.setState({
         editTaskModal: false, editTaskData: { id: '',task_name: '', task_completed: '' }
       })      
     })
     .catch(error => {
       console.log(error);
-     
+     //debugger;
     });
   }
   editTask(id, task_name, task_completed) {
@@ -86,14 +87,14 @@ class EventsTasks extends Component {
     axiosWithAuth()
     .delete('/api/tasks/' + id)
       .then((response) => {
-      this._refreshEvents();
+      this._refreshTasks();
       })
      .catch(error => {
       console.log(error);
     });
   }
 
-  _refreshEvents() {    
+  _refreshTasks() {    
     axiosWithAuth()
 		.get('/api/tasks/?event_id=' + this.Event_id)
     .then(response => {
@@ -196,12 +197,12 @@ class EventsTasks extends Component {
           <FormGroup>
           
             <Label for="task_title">Event Title</Label>
-            <Input id="task_title" value={this.state.editTaskData.task_title} onChange={(e) => {
+            <Input id="task_title" value={this.state.editTaskData.task_name} onChange={(e) => {
               let { editTaskData } = this.state;
 
-              editTaskData.task_title = e.target.value;
+              editTaskData.task_name = e.target.value;
 
-              this.setState({ editTaskData });
+              this.setState({ editTaskData: {...editTaskData}});
             }} />
           </FormGroup>
                            
@@ -232,6 +233,7 @@ class EventsTasks extends Component {
               <th>#</th>
               <th>Task Title</th>
               <th>Completed</th>
+              <th>Actions</th>
             </tr>
           </thead>
 
