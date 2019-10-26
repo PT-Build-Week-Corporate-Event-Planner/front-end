@@ -43,7 +43,7 @@ class EventsTasks extends Component {
   }
   addTask() {
     axiosWithAuth()
-    .post('/api/events/?event_id='`${this.Event_id}`, this.state.newTaskData).then((response) => {
+    .post('/api/tasks/?event_id=' + this.Event_id, this.state.newTaskData).then((response) => {
       let { Tasks } = this.state;
 
       Tasks.push(response.data);
@@ -55,6 +55,7 @@ class EventsTasks extends Component {
    })
    .catch(error => {
     console.log(error)
+    debugger;
     })
   }
   updateTask() {
@@ -137,7 +138,7 @@ class EventsTasks extends Component {
     return (
       <div className="events-Container">
 
-      <h1>Scheduled Events</h1>
+      <h1>Event Tasks</h1>
       
       {'   '}<Button className="my-3" color="primary" onClick={this.toggleNewTaskModal.bind(this)}>Add Task</Button>
 
@@ -147,27 +148,14 @@ class EventsTasks extends Component {
             
             {/* Add New Task Data */}  
             
-            {/* Task Title */}
-
-          <FormGroup>
-            <Label for="TaskTitle">Task Title</Label>
-            <Input id="TaskTitle" value={this.state.newTaskData.task_title} onChange={(e) => {
-              let { newTaskData } = this.state;
-
-              newTaskData.task_title = e.target.value;
-
-              this.setState({ newTaskData });
-            }} />
-          </FormGroup>
-
             {/* Event Task */}
 
           <FormGroup>
             <Label for="TaskDescription">Task Description</Label>
-            <Input id="TaskDescription" value={this.state.newTaskData.task_title} onChange={(e) => {
+            <Input id="TaskDescription" value={this.state.newTaskData.task_name} onChange={(e) => {
               let { newTaskData } = this.state;
 
-              newTaskData.task_description = e.target.value;
+              newTaskData.task_name = e.target.value;
 
               this.setState({ newTaskData });
             }} />
@@ -180,7 +168,7 @@ class EventsTasks extends Component {
           <Input id="completed" type='hidden' value={false} onChange={(e) => {
               let { newTaskData } = this.state;
 
-              newTaskData.completed = e.target.value;
+              newTaskData.task_completed = e.target.value;
 
               this.setState({ newTaskData });
             }} />
