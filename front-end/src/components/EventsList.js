@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap';
-
+import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button, Media } from 'reactstrap';
 import moment from 'moment';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
-
 import { Link } from 'react-router-dom';
 
 class EventsList extends Component {
@@ -14,6 +12,11 @@ class EventsList extends Component {
     // hard coded for demoing. 
     this.loggedinUserID = 6;
     console.log(this.loggedinUserID); 
+    const MyPlaceHolderPicture = './'
+    
+    var imgStyle = {
+      minWidth: "128px",
+    };
    }
     
   state = {
@@ -312,7 +315,7 @@ class EventsList extends Component {
       </Modal>
 
       <Modal isOpen={this.state.editEventModal} toggle={this.toggleEditEventModal.bind(this)}>
-        <ModalHeader toggle={this.toggleEditEventModal.bind(this)}>Edit Event</ModalHeader>
+        <ModalHeader toggle={this.toggleEditEventModal.bind(this)}>Edit/Preview Event Details</ModalHeader>
         <ModalBody>
           
           {/* Edit Event Data */}  
@@ -320,6 +323,7 @@ class EventsList extends Component {
           {/* event_title */} 
 
           <FormGroup>
+          
             <Label for="event_title">Event Title</Label>
             <Input id="event_title" value={this.state.editEventData.event_title} onChange={(e) => {
               let { editEventData } = this.state;
@@ -347,6 +351,7 @@ class EventsList extends Component {
           
           <FormGroup>
             <Label for="image_url">image url</Label>
+            <div><Media style={this.imgStyle} object  src={this.MyPlaceHolderPicture} alt="My PlaceHolder Picture"  alt="#"></Media></div>            
             <Input id="image_url" value={this.state.editEventData.image_url} onChange={(e) => {
               let { editEventData } = this.state;
 
