@@ -11,12 +11,8 @@ class EventsList extends Component {
     //this.loggedinUserID = localStorage.getItem( "userid" );
     // hard coded for demoing. 
     this.loggedinUserID = 6;
-    console.log(this.loggedinUserID); 
-    const MyPlaceHolderPicture = './'
-    
-    var imgStyle = {
-      minWidth: "128px",
-    };
+    //console.log(this.loggedinUserID); 
+   
    }
     
   state = {
@@ -351,7 +347,7 @@ class EventsList extends Component {
           
           <FormGroup>
             <Label for="image_url">image url</Label>
-            <div><Media style={this.imgStyle} object  src={this.MyPlaceHolderPicture} alt="My PlaceHolder Picture"  alt="#"></Media></div>            
+                     
             <Input id="image_url" value={this.state.editEventData.image_url} onChange={(e) => {
               let { editEventData } = this.state;
 
