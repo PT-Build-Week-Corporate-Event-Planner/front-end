@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap';
-//import "react-datepicker/dist/react-datepicker.css";
+
 import moment from 'moment';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
-//import React, { useState, useEffect } from "react";
+
 import { Link } from 'react-router-dom';
 
 class EventsList extends Component {
    constructor () {
     super(); 
-    //this.loggedinUserID = localStorage.getItem( "userid" );
+    this.loggedinUserID = localStorage.getItem( "userid" );
+    console.log(this.loggedinUserID); 
    }
-     
+    
   state = {
     Events: [],
     newEventData: {
@@ -115,7 +116,7 @@ class EventsList extends Component {
 
   _refreshEvents() {    
     axiosWithAuth()
-		.get('/api/events')
+		.get('/api/events/?user_id=' + this.loggedinUserID)
     .then(response => {
       this.setState({
         Events: response.data
@@ -128,7 +129,18 @@ class EventsList extends Component {
   
   
   render() {
-    //console.log('loggedinuserID: ' + this.loggedinUserIDuser)
+    
+    let comp = '';
+    
+    if(Event.completed) {
+
+      comp = 'Yes'
+
+    } else {
+
+      comp = 'No'
+
+    }
     let Events = this.state.Events.map((Event) => {
       return (
         <tr key={Event.id}>   
@@ -141,12 +153,12 @@ class EventsList extends Component {
         <td>{Event.attendees}</td>
         <td>{Event.budget}</td>
         <td>{Event.user_id}</td>
-        <td>{Event.completed}</td>
+        <td>{comp}</td>
           
           <td>
             <Button color="success" size="sm" className="mr-2" onClick={this.editEvent.bind(this, Event.id, Event.event_title, Event.event_description, Event.image_url, Event.event_date, Event.event_time, Event.attendees, Event.budget, Event.user_id, Event.completed )}>Edit Event</Button>
             <Button color="danger" size="sm" onClick={this.deleteEvent.bind(this, Event.id)}>Delete Event</Button> {' '}
-            <Link to ={`/taskslist/${Event.id}`} >  <Button color="success" size="sm" className="mr-2">Event Tasks</Button> </Link>
+            <Link to ={`/taskslist/${Event.user_id}`} >  <Button color="success" size="sm" className="mr-2">Event Tasks</Button> </Link>
           </td>
         </tr>
       )
@@ -260,7 +272,7 @@ class EventsList extends Component {
 
         <FormGroup>
             {/*<Label for="user_id">user_id</Label> type="hidden"*/} 
-            <Input id="user_id"  value={this.state.newEventData.user_id} onChange={(e) => {
+            <Input id="user_id"  type='hidden' value={this.state.newEventData.user_id} onChange={(e) => {
               let { newEventData } = this.state;
 
               newEventData.user_id = e.target.value;
@@ -275,8 +287,8 @@ class EventsList extends Component {
 
             
 
-            <Label for="completed"> Completed:</Label>
-             <Input id="completed" value={this.state.newEventData.completed} onChange={(e) => {
+            {/*<Label for="completed"> Completed:</Label>*/}
+             <Input id="completed" type='hidden' value={false} onChange={(e) => {
               let { newEventData } = this.state;
 
               newEventData.completed = e.target.value;
@@ -349,7 +361,7 @@ class EventsList extends Component {
             <Input id="event_date" type="date" value={moment(this.state.editEventData.event_date).format('YYYY-MM-DD')} onChange={(e) => {
               let { editEventData } = this.state;
 
-              editEventData.event_date = e.target.value;
+              editEventData.event_date = moment(e.target.value).add(1, 'days');
 
               this.setState({ editEventData });
             }} />
