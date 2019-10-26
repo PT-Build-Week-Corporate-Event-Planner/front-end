@@ -205,7 +205,7 @@ p {
 .banner {
   height: 40vh;
   width: 100%;
-  background-image: url(/);
+  background-image: url('./citySkyline.jpg');
   background-size: cover;
   border-bottom: 5px solid #0facc4;
   opacity: 0.9;
