@@ -10,7 +10,9 @@ import { Link } from 'react-router-dom';
 class EventsList extends Component {
    constructor () {
     super(); 
-    this.loggedinUserID = localStorage.getItem( "userid" );
+    //this.loggedinUserID = localStorage.getItem( "userid" );
+    // hard coded for demoing. 
+    this.loggedinUserID = 6;
     console.log(this.loggedinUserID); 
    }
     
@@ -158,7 +160,7 @@ class EventsList extends Component {
           <td>
             <Button color="success" size="sm" className="mr-2" onClick={this.editEvent.bind(this, Event.id, Event.event_title, Event.event_description, Event.image_url, Event.event_date, Event.event_time, Event.attendees, Event.budget, Event.user_id, Event.completed )}>Edit Event</Button>
             <Button color="danger" size="sm" onClick={this.deleteEvent.bind(this, Event.id)}>Delete Event</Button> {' '}
-            <Link to ={`/taskslist/${Event.user_id}`} >  <Button color="success" size="sm" className="mr-2">Event Tasks</Button> </Link>
+            <Link to ={`/taskslist/${Event.id}`} >  <Button color="success" size="sm" className="mr-2">Event Tasks</Button> </Link>
           </td>
         </tr>
       )
