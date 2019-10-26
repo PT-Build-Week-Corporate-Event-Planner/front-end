@@ -361,7 +361,7 @@ class EventsList extends Component {
             <Input id="event_date" type="date" value={moment(this.state.editEventData.event_date).format('YYYY-MM-DD')} onChange={(e) => {
               let { editEventData } = this.state;
 
-              editEventData.event_date = e.target.value;
+              editEventData.event_date = moment(e.target.value).add(1, 'days');
 
               this.setState({ editEventData });
             }} />
