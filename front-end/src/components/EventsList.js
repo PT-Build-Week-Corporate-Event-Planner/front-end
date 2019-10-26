@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap';
-//import "react-datepicker/dist/react-datepicker.css";
+
 import moment from 'moment';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
-//import React, { useState, useEffect } from "react";
+
 import { Link } from 'react-router-dom';
 
 class EventsList extends Component {
    constructor () {
     super(); 
-    //this.loggedinUserID = localStorage.getItem( "userid" );
+    this.loggedinUserID = localStorage.getItem( "userid" );
+    console.log(this.loggedinUserID); 
    }
-     
+    
   state = {
     Events: [],
     newEventData: {
@@ -115,7 +116,7 @@ class EventsList extends Component {
 
   _refreshEvents() {    
     axiosWithAuth()
-		.get('/api/events')
+		.get('/api/events/?user_id=' + this.loggedinUserID)
     .then(response => {
       this.setState({
         Events: response.data
@@ -128,7 +129,7 @@ class EventsList extends Component {
   
   
   render() {
-    //console.log('loggedinuserID: ' + this.loggedinUserIDuser)
+    
     let Events = this.state.Events.map((Event) => {
       return (
         <tr key={Event.id}>   
