@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button, Media } from 'reactstrap';
+import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap';
 import moment from 'moment';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
 import { Link } from 'react-router-dom';
@@ -77,8 +76,7 @@ class EventsList extends Component {
    })
    .catch(error => {
     console.log(error)
-    debugger;
-  })
+    })
   }
   updateEvent() {
     let {event_title,event_description,image_url,event_date,event_time,attendees,budget,user_id,completed } = this.state.editEventData;

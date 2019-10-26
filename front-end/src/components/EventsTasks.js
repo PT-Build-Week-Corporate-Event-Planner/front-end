@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; 
-import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button, Media } from 'reactstrap';
+import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap';
 import moment from 'moment';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
 
@@ -13,81 +13,61 @@ class EventsTasks extends Component {
    }
     
   state = {
-    Events: [],
-    newEventData: {
-        event_title: '',
-        event_description: '',
-        image_url: '',
-        event_date: '',
-        event_time: '',
-        attendees: '',
-        budget: '',
-        user_id: '',
-        completed: ''
-    },
-    editEventData: {
+    Tasks: [],
+    newTaskData: {
+        task_name: '',
+        event_id: '',
+        task_completed: ''
+   },
+    editTaskData: {
         id: '',
-        event_title: '',
-        event_description: '',
-        image_url: '',
-        event_date: '',
-        event_time: '',
-        attendees: '',
-        budget: '',
-        user_id: '',
-        completed: ''
+        task_name: '',
+        event_id: '',
+        task_completed: ''      
     },
-    newEventModal: false,
-    editEventModal: false
+    newTaskModal: false,
+    editTaskModal: false
   }
   componentWillMount() {
     this._refreshEvents();
   }
-  toggleNewEventModal() {
+  toggleNewTaskModal() {
     this.setState({
-      newEventModal: ! this.state.newEventModal
+      newTaskModal: ! this.state.newTaskModal
     });
   }
-  toggleEditEventModal() {
+  toggleEditTaskModal() {
     this.setState({
-      editEventModal: ! this.state.editEventModal
+      editTaskModal: ! this.state.editTaskModal
     });
   }
-  addEvent() {
+  addTask() {
     axiosWithAuth()
-    .post('/api/events', this.state.newEventData).then((response) => {
-      let { Events } = this.state;
+    .post('/api/events/?event_id='`${this.Event_id}`, this.state.newTaskData).then((response) => {
+      let { Tasks } = this.state;
 
-      Events.push(response.data);
+      Tasks.push(response.data);
 
-      this.setState({ Events, newEventModal: false, newEventData: {
-        event_title: '',
-        event_description: '',
-        image_url: '',
-        event_date: '',
-        event_time: '',
-        attendees: '',
-        budget: '',
-        user_id: '',
+      this.setState({ Tasks, newTaskModal: false, newTaskData: {
+        task_name: '',
         completed: ''
       }})      
    })
    .catch(error => {
     console.log(error)
-    debugger;
-  })
+    })
   }
-  updateEvent() {
-    let {event_title,event_description,image_url,event_date,event_time,attendees,budget,user_id,completed } = this.state.editEventData;
+  updateTask() {
+    let { task_name,task_completed } = this.state.editTaskData;
     axiosWithAuth()
-    .put('/api/events/' + this.state.editEventData.id, {
-    event_title,event_description,image_url,event_date,event_time,attendees,budget,user_id,completed
+    .put('/api/tasks/' + this.state.editTaskData.id, {
+      task_name, task_completed
     })
     .then((response) => {
       this._refreshEvents();
 
       this.setState({
-        editEventModal: false, editEventData: { id: '',event_title: '', event_description: '', image_url: '', event_date: '', event_time: '', attendees: '', budget: '', user_id: '', completed: '' }
+        editTaskModal: false, editTaskData: { id: '',task_name: '', task_completed: '' }
       })      
     })
     .catch(error => {
@@ -95,15 +75,15 @@ class EventsTasks extends Component {
      
     });
   }
-  editEvent(id, event_title,event_description,image_url,event_date,event_time,attendees,budget,user_id,completed) {
+  editTask(id, task_name, task_completed) {
     this.setState({
-      editEventData: { id, event_title,event_description,image_url,event_date,event_time,attendees,budget,user_id,completed }, editEventModal: ! this.state.editEventModal
+      editTaskData: { id, task_name, task_completed }, editTaskModal: ! this.state.editTaskModal
     });
   }
  
-  deleteEvent(id) {
+  deleteTask(id) {
     axiosWithAuth()
-    .delete('/api/events/' + id)
+    .delete('/api/tasks/' + id)
       .then((response) => {
       this._refreshEvents();
       })
@@ -114,10 +94,10 @@ class EventsTasks extends Component {
 
   _refreshEvents() {    
     axiosWithAuth()
-		.get('/api/events/?user_id=' + this.loggedinUserID)
+		.get('/api/tasks/?event_id=' + this.Event_id)
     .then(response => {
       this.setState({
-        Events: response.data
+        Tasks: response.data
       })
     })
     .catch(error => {
@@ -128,9 +108,10 @@ class EventsTasks extends Component {
   
   render() {
     
+    /*
     let comp = '';
     
-    if(Event.completed) {
+    if(Task.completed) {
 
       comp = 'Yes'
 
@@ -138,24 +119,17 @@ class EventsTasks extends Component {
 
       comp = 'No'
 
-    }
-    let Events = this.state.Events.map((Event) => {
+    }*/
+    let Tasks = this.state.Tasks.map((Task) => {
       return (
-        <tr key={Event.id}>   
-         <td>{Event.id}</td>    
-        <td>{Event.event_title}</td>
-        <td>{Event.event_description}</td>
-        <td>{Event.image_url}</td>
-        <td>{moment(Event.event_date).format('LL')}</td>
-        <td>{moment(Event.event_time, 'HH:mm').format('LT')}</td>
-        <td>{Event.attendees}</td>
-        <td>{Event.budget}</td>
-        <td>{Event.user_id}</td>
-        <td>{comp}</td>
-          
+        <tr key={Task.id}>   
+         <td>{Task.id}</td>    
+        <td>{Task.task_name}</td>
+        <td>{Task.task_completed}</td>
+                  
           <td>
-            <Button color="success" size="sm" className="mr-2" onClick={this.editEvent.bind(this, Event.id, Event.event_title, Event.event_description, Event.image_url, Event.event_date, Event.event_time, Event.attendees, Event.budget, Event.user_id, Event.completed )}>Edit Task</Button>
-            <Button color="danger" size="sm" onClick={this.deleteEvent.bind(this, Event.id)}>Delete Task</Button> {' '}
+            <Button color="success" size="sm" className="mr-2" onClick={this.editTask.bind(this, Task.id, Task.task_name,Task.task_completed )}>Edit Task</Button>
+            <Button color="danger" size="sm" onClick={this.deleteTask.bind(this, Task.id)}>Delete Task</Button> {' '}
           </td>
         </tr>
       )
@@ -165,28 +139,28 @@ class EventsTasks extends Component {
 
       <h1>Scheduled Events</h1>
       
-      {'   '}<Button className="my-3" color="primary" onClick={this.toggleNewEventModal.bind(this)}>Add Event</Button>
+      {'   '}<Button className="my-3" color="primary" onClick={this.toggleNewTaskModal.bind(this)}>Add Task</Button>
 
-      <Modal isOpen={this.state.newEventModal} toggle={this.toggleNewEventModal.bind(this)}>
-        <ModalHeader toggle={this.toggleNewEventModal.bind(this)}>Add a new Event</ModalHeader>
+      <Modal isOpen={this.state.newTaskModal} toggle={this.toggleNewTaskModal.bind(this)}>
+        <ModalHeader toggle={this.toggleNewTaskModal.bind(this)}>Add a new Task</ModalHeader>
         <ModalBody>
             
-            {/* Add New Event Data */}  
+            {/* Add New Task Data */}  
             
-            {/* Event Title */}
+            {/* Task Title */}
 
           <FormGroup>
-            <Label for="EventTitle">Event Title</Label>
-            <Input id="EventTitle" value={this.state.newEventData.event_title} onChange={(e) => {
-              let { newEventData } = this.state;
+            <Label for="TaskTitle">Task Title</Label>
+            <Input id="TaskTitle" value={this.state.newTaskData.task_title} onChange={(e) => {
+              let { newTaskData } = this.state;
 
-              newEventData.event_title = e.target.value;
+              newTaskData.task_title = e.target.value;
 
-              this.setState({ newEventData });
+              this.setState({ newTaskData });
             }} />
           </FormGroup>
 
-            {/* Event Description */}
+            {/* Event Task */}
 
           <FormGroup>
             <Label for="EventDescription">Event Description</Label>
@@ -458,7 +432,7 @@ class EventsTasks extends Component {
           </thead>
 
           <tbody>
-            {Events}
+            {Tasks}
           </tbody>
         </Table>
        
