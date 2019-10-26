@@ -5,7 +5,7 @@ import moment from 'moment';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
 import { Link } from 'react-router-dom';
 
-class EventsList extends Component {
+class EventsTasks extends Component {
    constructor () {
     super(); 
     //this.loggedinUserID = localStorage.getItem( "userid" );
@@ -157,9 +157,8 @@ class EventsList extends Component {
         <td>{comp}</td>
           
           <td>
-            <Button color="success" size="sm" className="mr-2" onClick={this.editEvent.bind(this, Event.id, Event.event_title, Event.event_description, Event.image_url, Event.event_date, Event.event_time, Event.attendees, Event.budget, Event.user_id, Event.completed )}>Edit Event</Button>
-            <Button color="danger" size="sm" onClick={this.deleteEvent.bind(this, Event.id)}>Delete Event</Button> {' '}
-            <Link to ={`/eventstasks/${Event.id}`} >  <Button color="success" size="sm" className="mr-2">Event Tasks</Button> </Link>
+            <Button color="success" size="sm" className="mr-2" onClick={this.editEvent.bind(this, Event.id, Event.event_title, Event.event_description, Event.image_url, Event.event_date, Event.event_time, Event.attendees, Event.budget, Event.user_id, Event.completed )}>Edit Task</Button>
+            <Button color="danger" size="sm" onClick={this.deleteEvent.bind(this, Event.id)}>Delete Task</Button> {' '}
           </td>
         </tr>
       )
@@ -472,4 +471,4 @@ class EventsList extends Component {
   }
 }
 
-export default EventsList;
+export default EventsTasks;
