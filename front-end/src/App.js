@@ -3,7 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 import SignupForm from "./components/Onboard";
 import TasksList from "./components/TasksList";
 import Login from './components/Login';
-
+import EventsTasks from './components/EventsTasks';
 import EventsList from './components/EventsList';
 import "./App.css";
 
@@ -12,6 +12,7 @@ function App() {
 		<div className="App">
 			<PrivateRoute path='/tasksList/:id' component={TasksList} />
 			<PrivateRoute path='/eventslist' component={EventsList} />
+			<PrivateRoute path='/eventstasks' component={EventsTasks} />
 			<Route path="/register" component={SignupForm} />
 			<Route path="/login" component={Login}  />
 		</div>
