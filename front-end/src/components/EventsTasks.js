@@ -1,96 +1,74 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button, Media } from 'reactstrap';
+import React, { Component } from 'react'; 
+import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap';
 import moment from 'moment';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
-import { Link } from 'react-router-dom';
 
 class EventsTasks extends Component {
    constructor () {
+
     super(); 
-    //this.loggedinUserID = localStorage.getItem( "userid" );
-    // hard coded for demoing. 
-    this.loggedinUserID = 6;
-    //console.log(this.loggedinUserID); 
    
+    this.loggedinUserID = 6;
+    this.Event_id = 33;        
    }
     
   state = {
-    Events: [],
-    newEventData: {
-        event_title: '',
-        event_description: '',
-        image_url: '',
-        event_date: '',
-        event_time: '',
-        attendees: '',
-        budget: '',
-        user_id: '',
-        completed: ''
-    },
-    editEventData: {
+    Tasks: [],
+    newTaskData: {
+        task_name: '',
+        event_id: '',
+        task_completed: ''
+   },
+    editTaskData: {
         id: '',
-        event_title: '',
-        event_description: '',
-        image_url: '',
-        event_date: '',
-        event_time: '',
-        attendees: '',
-        budget: '',
-        user_id: '',
-        completed: ''
+        task_name: '',
+        event_id: '',
+        task_completed: ''      
     },
-    newEventModal: false,
-    editEventModal: false
+    newTaskModal: false,
+    editTaskModal: false
   }
   componentWillMount() {
     this._refreshEvents();
   }
-  toggleNewEventModal() {
+  toggleNewTaskModal() {
     this.setState({
-      newEventModal: ! this.state.newEventModal
+      newTaskModal: ! this.state.newTaskModal
     });
   }
-  toggleEditEventModal() {
+  toggleEditTaskModal() {
     this.setState({
-      editEventModal: ! this.state.editEventModal
+      editTaskModal: ! this.state.editTaskModal
     });
   }
-  addEvent() {
+  addTask() {
     axiosWithAuth()
-    .post('/api/events', this.state.newEventData).then((response) => {
-      let { Events } = this.state;
+    .post('/api/tasks/?event_id=' + this.Event_id, this.state.newTaskData).then((response) => {
+      let { Tasks } = this.state;
 
-      Events.push(response.data);
+      Tasks.push(response.data);
 
-      this.setState({ Events, newEventModal: false, newEventData: {
-        event_title: '',
-        event_description: '',
-        image_url: '',
-        event_date: '',
-        event_time: '',
-        attendees: '',
-        budget: '',
-        user_id: '',
+      this.setState({ Tasks, newTaskModal: false, newTaskData: {
+        task_name: '',
         completed: ''
       }})      
    })
    .catch(error => {
     console.log(error)
     debugger;
-  })
+    })
   }
-  updateEvent() {
-    let {event_title,event_description,image_url,event_date,event_time,attendees,budget,user_id,completed } = this.state.editEventData;
+  updateTask() {
+    let { task_name,task_completed } = this.state.editTaskData;
     axiosWithAuth()
-    .put('/api/events/' + this.state.editEventData.id, {
-    event_title,event_description,image_url,event_date,event_time,attendees,budget,user_id,completed
+    .put('/api/tasks/' + this.state.editTaskData.id, {
+      task_name, task_completed
     })
     .then((response) => {
       this._refreshEvents();
 
       this.setState({
-        editEventModal: false, editEventData: { id: '',event_title: '', event_description: '', image_url: '', event_date: '', event_time: '', attendees: '', budget: '', user_id: '', completed: '' }
+        editTaskModal: false, editTaskData: { id: '',task_name: '', task_completed: '' }
       })      
     })
     .catch(error => {
@@ -98,15 +76,15 @@ class EventsTasks extends Component {
      
     });
   }
-  editEvent(id, event_title,event_description,image_url,event_date,event_time,attendees,budget,user_id,completed) {
+  editTask(id, task_name, task_completed) {
     this.setState({
-      editEventData: { id, event_title,event_description,image_url,event_date,event_time,attendees,budget,user_id,completed }, editEventModal: ! this.state.editEventModal
+      editTaskData: { id, task_name, task_completed }, editTaskModal: ! this.state.editTaskModal
     });
   }
  
-  deleteEvent(id) {
+  deleteTask(id) {
     axiosWithAuth()
-    .delete('/api/events/' + id)
+    .delete('/api/tasks/' + id)
       .then((response) => {
       this._refreshEvents();
       })
@@ -117,10 +95,10 @@ class EventsTasks extends Component {
 
   _refreshEvents() {    
     axiosWithAuth()
-		.get('/api/events/?user_id=' + this.loggedinUserID)
+		.get('/api/tasks/?event_id=' + this.Event_id)
     .then(response => {
       this.setState({
-        Events: response.data
+        Tasks: response.data
       })
     })
     .catch(error => {
@@ -131,9 +109,10 @@ class EventsTasks extends Component {
   
   render() {
     
+    /*
     let comp = '';
     
-    if(Event.completed) {
+    if(Task.completed) {
 
       comp = 'Yes'
 
@@ -141,24 +120,17 @@ class EventsTasks extends Component {
 
       comp = 'No'
 
-    }
-    let Events = this.state.Events.map((Event) => {
+    }*/
+    let Tasks = this.state.Tasks.map((Task) => {
       return (
-        <tr key={Event.id}>   
-         <td>{Event.id}</td>    
-        <td>{Event.event_title}</td>
-        <td>{Event.event_description}</td>
-        <td>{Event.image_url}</td>
-        <td>{moment(Event.event_date).format('LL')}</td>
-        <td>{moment(Event.event_time, 'HH:mm').format('LT')}</td>
-        <td>{Event.attendees}</td>
-        <td>{Event.budget}</td>
-        <td>{Event.user_id}</td>
-        <td>{comp}</td>
-          
+        <tr key={Task.id}>   
+         <td>{Task.id}</td>    
+        <td>{Task.task_name}</td>
+        <td>{Task.task_completed}</td>
+                  
           <td>
-            <Button color="success" size="sm" className="mr-2" onClick={this.editEvent.bind(this, Event.id, Event.event_title, Event.event_description, Event.image_url, Event.event_date, Event.event_time, Event.attendees, Event.budget, Event.user_id, Event.completed )}>Edit Task</Button>
-            <Button color="danger" size="sm" onClick={this.deleteEvent.bind(this, Event.id)}>Delete Task</Button> {' '}
+            <Button color="success" size="sm" className="mr-2" onClick={this.editTask.bind(this, Task.id, Task.task_name,Task.task_completed )}>Edit Task</Button>
+            <Button color="danger" size="sm" onClick={this.deleteTask.bind(this, Task.id)}>Delete Task</Button> {' '}
           </td>
         </tr>
       )
@@ -166,137 +138,41 @@ class EventsTasks extends Component {
     return (
       <div className="events-Container">
 
-      <h1>Scheduled Events</h1>
+      <h1>Event Tasks</h1>
       
-      {'   '}<Button className="my-3" color="primary" onClick={this.toggleNewEventModal.bind(this)}>Add Event</Button>
+      {'   '}<Button className="my-3" color="primary" onClick={this.toggleNewTaskModal.bind(this)}>Add Task</Button>
 
-      <Modal isOpen={this.state.newEventModal} toggle={this.toggleNewEventModal.bind(this)}>
-        <ModalHeader toggle={this.toggleNewEventModal.bind(this)}>Add a new Event</ModalHeader>
+      <Modal isOpen={this.state.newTaskModal} toggle={this.toggleNewTaskModal.bind(this)}>
+        <ModalHeader toggle={this.toggleNewTaskModal.bind(this)}>Add a new Task</ModalHeader>
         <ModalBody>
             
-            {/* Add New Event Data */}  
+            {/* Add New Task Data */}  
             
-            {/* Event Title */}
+            {/* Event Task */}
 
           <FormGroup>
-            <Label for="EventTitle">Event Title</Label>
-            <Input id="EventTitle" value={this.state.newEventData.event_title} onChange={(e) => {
-              let { newEventData } = this.state;
+            <Label for="TaskDescription">Task Description</Label>
+            <Input id="TaskDescription" value={this.state.newTaskData.task_name} onChange={(e) => {
+              let { newTaskData } = this.state;
 
-              newEventData.event_title = e.target.value;
+              newTaskData.task_name = e.target.value;
 
-              this.setState({ newEventData });
+              this.setState({ newTaskData });
             }} />
           </FormGroup>
-
-            {/* Event Description */}
-
-          <FormGroup>
-            <Label for="EventDescription">Event Description</Label>
-            <Input id="EventDescription" value={this.state.newEventData.rating} onChange={(e) => {
-              let { newEventData } = this.state;
-
-              newEventData.event_description = e.target.value;
-
-              this.setState({ newEventData });
-            }} />
-          </FormGroup>
-          
-        {/* image_url */}
-
-        <FormGroup>
-            <Label for="image_url">image url</Label>
-            <Input id="image_url" type="text" value={this.state.newEventData.image_url} onChange={(e) => {
-              let { newEventData } = this.state;
-
-              newEventData.image_url = e.target.value;
-
-              this.setState({ newEventData });
-            }} />
-          </FormGroup>
-
-        {/* event_date */}
-
-        <FormGroup>
             
-            <Label for="event_date">Event Date</Label>
-            
-                    
-           <Input type="date" id="event_date"  value={this.state.newEventData.event_date} onChange={(e) => {let { newEventData } = this.state; 
-           
-            newEventData.event_date = e.target.value; this.setState({ newEventData }); }} /> 
-      
-          
-          </FormGroup>
-
-        {/* event_time */}
-
-        <FormGroup>
-            <Label for="event_time">Event Time</Label>
-            <Input id="event_time" type="time" value={this.state.newEventData.event_time} onChange={(e) => {
-              let { newEventData } = this.state;
-
-              newEventData.event_time = e.target.value;
-
-              this.setState({ newEventData });
-            }} />
-          </FormGroup>
-        
-        {/* attendees */}
-
-        <FormGroup>
-            <Label for="attendees">Attendees</Label>
-            <Input id="attendees" type="number" value={this.state.newEventData.attendees} onChange={(e) => {
-              let { newEventData } = this.state;
-
-              newEventData.attendees = e.target.value;
-
-              this.setState({ newEventData });
-            }} />
-          </FormGroup>
-        
-        {/* budget */}
-
-        <FormGroup>
-            <Label for="budget">Budget</Label>
-            <Input id="budget" type="number" value={this.state.newEventData.budget} onChange={(e) => {
-              let { newEventData } = this.state;
-
-              newEventData.budget = e.target.value;
-
-              this.setState({ newEventData });
-            }} />
-          </FormGroup>
-        
-        {/* user_id */}
-
-        <FormGroup>
-            {/*<Label for="user_id">user_id</Label> type="hidden"*/} 
-            <Input id="user_id"  type='hidden' value={this.state.newEventData.user_id} onChange={(e) => {
-              let { newEventData } = this.state;
-
-              newEventData.user_id = e.target.value;
-
-              this.setState({ newEventData });
-            }} />
-          </FormGroup>
         
         {/* completed */} 
+        <FormGroup>            
 
-        <FormGroup>
+          <Input id="completed" type='hidden' value={false} onChange={(e) => {
+              let { newTaskData } = this.state;
 
-            
+              newTaskData.task_completed = e.target.value;
 
-            {/*<Label for="completed"> Completed:</Label>*/}
-             <Input id="completed" type='hidden' value={false} onChange={(e) => {
-              let { newEventData } = this.state;
-
-              newEventData.completed = e.target.value;
-
-              this.setState({ newEventData });
+              this.setState({ newTaskData });
             }} />
         
-
           </FormGroup>       
 
 
@@ -304,164 +180,63 @@ class EventsTasks extends Component {
         
         <ModalFooter>
 
-          <Button color="primary" onClick={this.addEvent.bind(this)}>Add Event</Button>{' '}
-          <Button color="secondary" onClick={this.toggleNewEventModal.bind(this)}>Cancel</Button>
+          <Button color="primary" onClick={this.addTask.bind(this)}>Add Task</Button>{' '}
+          <Button color="secondary" onClick={this.toggleNewTaskModal.bind(this)}>Cancel</Button>
         </ModalFooter>
       </Modal>
 
-      <Modal isOpen={this.state.editEventModal} toggle={this.toggleEditEventModal.bind(this)}>
-        <ModalHeader toggle={this.toggleEditEventModal.bind(this)}>Edit/Preview Event Details</ModalHeader>
+      <Modal isOpen={this.state.editTaskModal} toggle={this.toggleEditTaskModal.bind(this)}>
+        <ModalHeader toggle={this.toggleEditTaskModal.bind(this)}>Edit/Preview Task Details</ModalHeader>
         <ModalBody>
           
-          {/* Edit Event Data */}  
+          {/* Edit Task Data */}  
           
-          {/* event_title */} 
+          {/* task_title */} 
 
           <FormGroup>
           
-            <Label for="event_title">Event Title</Label>
-            <Input id="event_title" value={this.state.editEventData.event_title} onChange={(e) => {
-              let { editEventData } = this.state;
+            <Label for="task_title">Event Title</Label>
+            <Input id="task_title" value={this.state.editTaskData.task_title} onChange={(e) => {
+              let { editTaskData } = this.state;
 
-              editEventData.event_title = e.target.value;
+              editTaskData.task_title = e.target.value;
 
-              this.setState({ editEventData });
+              this.setState({ editTaskData });
             }} />
           </FormGroup>
-
-          {/* event_description */}
-
-          <FormGroup>
-            <Label for="event_description">Event Description</Label>
-            <Input id="event_description" value={this.state.editEventData.event_description} onChange={(e) => {
-              let { editEventData } = this.state;
-
-              editEventData.event_description = e.target.value;
-
-              this.setState({ editEventData });
-            }} />
-          </FormGroup>
-
-          {/* image_url */}
-          
-          <FormGroup>
-            <Label for="image_url">image url</Label>
-                     
-            <Input id="image_url" value={this.state.editEventData.image_url} onChange={(e) => {
-              let { editEventData } = this.state;
-
-              editEventData.image_url = e.target.value;
-
-              this.setState({ editEventData });
-            }} />
-          </FormGroup>
-
-          {/* event_date */}
-
-          <FormGroup>
-            <Label for="event_date">Event Date</Label>
-            <Input id="event_date" type="date" value={moment(this.state.editEventData.event_date).format('YYYY-MM-DD')} onChange={(e) => {
-              let { editEventData } = this.state;
-
-              editEventData.event_date = moment(e.target.value).add(1, 'days');
-
-              this.setState({ editEventData });
-            }} />
-          </FormGroup>
-          
-          {/* event_time */}
-
-          <FormGroup>
-            <Label for="event_time">Event Time</Label>
-            <Input id="event_time" type="time" value={this.state.editEventData.event_time} onChange={(e) => {
-              let { editEventData } = this.state;
-
-              editEventData.event_time = e.target.value;
-
-              this.setState({ editEventData });
-            }} />
-          </FormGroup>
-          
-          {/* attendees */}
-
-          <FormGroup>
-            <Label for="attendees">Attendees</Label>
-            <Input id="attendees" value={this.state.editEventData.attendees} onChange={(e) => {
-              let { editEventData } = this.state;
-
-              editEventData.attendees = e.target.value;
-
-              this.setState({ editEventData });
-            }} />
-          </FormGroup>
-          
-          {/* budget */}
-
-          <FormGroup>
-            <Label for="budget">budget</Label>
-            <Input id="budget" value={this.state.editEventData.budget} onChange={(e) => {
-              let { editEventData } = this.state;
-
-              editEventData.budget = e.target.value;
-
-              this.setState({ editEventData });
-            }} />
-          </FormGroup>
-          
-          {/* user_id */}
-
-          <FormGroup>
-            {/*<Label for="user_id">user_id</Label>*/} 
-           
-            <Input id="user_id" type="hidden" value={this.state.editEventData.user_id} onChange={(e) => {
-              let { editEventData } = this.state;
-
-              editEventData.user_id = e.target.value;
-
-              this.setState({ editEventData });
-            }} />
-          </FormGroup>
-          
+                           
           {/* completed */}
 
           <FormGroup>
             <Label for="completed">Completed</Label>{' '}
-            <Input id="completed" value={this.state.editEventData.completed} onChange={(e) => {
-              let { editEventData } = this.state;
+            <Input id="completed" value={this.state.editTaskData.completed} onChange={(e) => {
+              let { editTaskData } = this.state;
 
-              editEventData.completed = e.target.value;
+              editTaskData.completed = e.target.value;
 
-              this.setState({ editEventData });
+              this.setState({ editTaskData });
             }} />
           </FormGroup>
 
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={this.updateEvent.bind(this)}>Update Event</Button>{' '}
-          <Button color="secondary" onClick={this.toggleEditEventModal.bind(this)}>Cancel</Button>
+          <Button color="primary" onClick={this.updateTask.bind(this)}>Update Task</Button>{' '}
+          <Button color="secondary" onClick={this.toggleEditTaskModal.bind(this)}>Cancel</Button>
         </ModalFooter>
       </Modal>
 
 
-        <Table className='theEvents'>
+        <Table className='theTasks'>
           <thead>
             <tr>
               <th>#</th>
-              <th>Event Title</th>
-              <th>Event Description</th>
-			  <th>image_url</th>
-			  <th>Event Date</th>
-			  <th>Event Time</th>
-			  <th>Attendees</th>
-			  <th>Budget</th>
-			  <th>User_id</th>
-			  <th>completed</th>
-			  <th>Actions</th>
+              <th>Task Title</th>
+              <th>Completed</th>
             </tr>
           </thead>
 
           <tbody>
-            {Events}
+            {Tasks}
           </tbody>
         </Table>
        
