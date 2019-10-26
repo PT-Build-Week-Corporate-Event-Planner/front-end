@@ -1,18 +1,15 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from 'react'; 
 import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button, Media } from 'reactstrap';
 import moment from 'moment';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
-import { Link } from 'react-router-dom';
 
 class EventsTasks extends Component {
    constructor () {
+
     super(); 
-    //this.loggedinUserID = localStorage.getItem( "userid" );
-    // hard coded for demoing. 
-    this.loggedinUserID = 6;
-    //console.log(this.loggedinUserID); 
    
+    this.loggedinUserID = 6;
+    this.Event_id = 33;        
    }
     
   state = {
