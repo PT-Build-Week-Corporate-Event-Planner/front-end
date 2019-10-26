@@ -30,11 +30,11 @@ function TheHeader() {
                </div>
                
                <div className='navbar'>
-                   <a href='/index.html'>Home</a>
-                   <a href='#'>About Us</a>
+                   <a href='index.html'>Home</a>                   
+                   <a href='about-page.html'>About Us</a>
                    <a href='#'>Contact Us</a>
-                   <a href='#'>Sign up</a>
-                   <a href='#'>Log in</a>
+                   <a href='/register'>Sign up</a>
+                   <a href='/login'>Log in</a>
                </div>
 
            </header>
