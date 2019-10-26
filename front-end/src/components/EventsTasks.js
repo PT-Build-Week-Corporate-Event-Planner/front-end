@@ -17,7 +17,7 @@ class EventsTasks extends Component {
     newTaskData: {
         task_name: '',
         event_id: '',
-        task_completed: ''
+        task_completed: false
    },
     editTaskData: {
         id: '',
@@ -42,10 +42,11 @@ class EventsTasks extends Component {
     });
   }
   addTask() {
-    axiosWithAuth()
+      
+    axiosWithAuth()    
     .post('/api/tasks/?event_id=' + this.Event_id, this.state.newTaskData).then((response) => {
       let { Tasks } = this.state;
-
+      debugger;
       Tasks.push(response.data);
 
       this.setState({ Tasks, newTaskModal: false, newTaskData: {
@@ -55,7 +56,7 @@ class EventsTasks extends Component {
    })
    .catch(error => {
     console.log(error)
-    debugger;
+    
     })
   }
   updateTask() {
