@@ -130,6 +130,17 @@ class EventsList extends Component {
   
   render() {
     
+    let comp = '';
+    
+    if(Event.completed) {
+
+      comp = 'Yes'
+
+    } else {
+
+      comp = 'No'
+
+    }
     let Events = this.state.Events.map((Event) => {
       return (
         <tr key={Event.id}>   
@@ -142,7 +153,7 @@ class EventsList extends Component {
         <td>{Event.attendees}</td>
         <td>{Event.budget}</td>
         <td>{Event.user_id}</td>
-        <td>{Event.completed}</td>
+        <td>{comp}</td>
           
           <td>
             <Button color="success" size="sm" className="mr-2" onClick={this.editEvent.bind(this, Event.id, Event.event_title, Event.event_description, Event.image_url, Event.event_date, Event.event_time, Event.attendees, Event.budget, Event.user_id, Event.completed )}>Edit Event</Button>
@@ -261,7 +272,7 @@ class EventsList extends Component {
 
         <FormGroup>
             {/*<Label for="user_id">user_id</Label> type="hidden"*/} 
-            <Input id="user_id"  value={this.state.newEventData.user_id} onChange={(e) => {
+            <Input id="user_id"  type='hidden' value={this.state.newEventData.user_id} onChange={(e) => {
               let { newEventData } = this.state;
 
               newEventData.user_id = e.target.value;
@@ -276,8 +287,8 @@ class EventsList extends Component {
 
             
 
-            <Label for="completed"> Completed:</Label>
-             <Input id="completed" value={this.state.newEventData.completed} onChange={(e) => {
+            {/*<Label for="completed"> Completed:</Label>*/}
+             <Input id="completed" type='hidden' value={false} onChange={(e) => {
               let { newEventData } = this.state;
 
               newEventData.completed = e.target.value;
