@@ -30,11 +30,11 @@ function TheHeader() {
                </div>
                
                <div className='navbar'>
-                   <a href='https://corpeventplanner.netlify.com/'>Home</a>                   
-                   <a href='https://corpeventplanner.netlify.com/about-page.html'>About Us</a>
-                   <a href='#'>Contact Us</a>
-                   <a href='/register'>Sign up</a>
-                   <a href='/login'>Log in</a>
+                   <Link to ={'https://corpeventplanner.netlify.com/'}>Home</Link>
+                   <Link to ={'https://corpeventplanner.netlify.com/about-page.html'}>About Us</Link>
+                   <Link to= {'/'}>Contact Us</Link>
+                   <Link to ={'/register'}>Sign up</Link>
+                   <Link to ={'/login'}>log in</Link>
                </div>
 
            </header>
